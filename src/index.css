@@ -1,18 +1,70 @@
 body {
   margin: 0;
+  background-color: #1c2541;
+  color: white;
+  font-family: "Commissioner", sans-serif;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+button {
+  background-color: #3a506b;
+  color: white;
+  font-family: "Commissioner", sans-serif;
+  border: none;
+  border-radius: 0.3em;
+  padding: 0.7em;
+  align-self: center;
+  cursor: pointer;
+}
+
+input {
+  font-family: "Commissioner", sans-serif;
+  border: none;
+  border-radius: 0.3em;
+  padding: 0.5em;
+}
+
+input:focus {
+  outline: none;
 }
 
 .app {
   display: flex;
 }
 
+/* -------------------- SIDEBAR ----------------- */
+
 .sidebar {
+  position: fixed;
+  top: 0;
   height: 100vh;
   width: 20%;
-  background-color: aqua;
+  background-color: #0b132b;
 }
 
+.new-article {
+  color: #5bc0be;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em 0;
+}
+
+/* -------------------- MAIN ----------------- */
+
 .main {
+  margin-left: 20%;
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -22,37 +74,72 @@ body {
 /* -------------------- CORE INFORMATION ----------------- */
 
 .headings {
-  margin-top: 10%;
+  margin-top: 3em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 10%;
   width: 80%;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
 }
 
 .label-input {
   display: flex;
   flex-direction: column;
+  gap: 0.8em;
 }
 
 /* -------------------- PARAGRAPHS ----------------- */
 
 .paragraphs {
   width: 80%;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
+  display: flex;
+  flex-direction: column;
+}
+
+.paragraphs h2 {
+  text-align: center;
+  margin: 0.3em;
 }
 
 .above-para {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.3em;
 }
 
-/* -------------------- PARAGRAPHS ----------------- */
+.wordcount {
+  font-weight: 300;
+}
+
+textarea {
+  width: 60%;
+  resize: none;
+  height: 10em;
+  border-radius: 0.3em;
+  font-family: "Commissioner", sans-serif;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.add-para {
+  margin: 2em;
+}
+/* -------------------- VOCABULARY ----------------- */
 
 .vocabulary-section {
   width: 80%;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
+  display: flex;
+  flex-direction: column;
+}
+
+.vocabulary-section h2 {
+  text-align: center;
+  margin: 0.3em;
 }
 
 .above-vocab {
@@ -64,16 +151,25 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 10%;
-  margin-bottom: 5em;
+  gap: 2em;
 }
 
+.new-btn {
+  margin: 2em;
+}
 /* -------------------- QUIZ ----------------- */
 
 .quiz-section {
   width: 80%;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid white;
   margin-bottom: 5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.quiz-section h2 {
+  text-align: center;
+  margin: 0.3em;
 }
 
 .label-question {

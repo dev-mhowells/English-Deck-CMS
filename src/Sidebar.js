@@ -3,7 +3,7 @@ import "./index.css";
 export default function Sidebar() {
   return (
     <section className="sidebar">
-      <h2>Create new article</h2>
+      <h3 className="new-article">Create new article</h3>
     </section>
   );
 }
