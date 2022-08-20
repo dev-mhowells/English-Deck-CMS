@@ -1,13 +1,88 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+  display: flex;
+}
+
+.sidebar {
+  height: 100vh;
+  width: 20%;
+  background-color: aqua;
+}
+
+.main {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* -------------------- CORE INFORMATION ----------------- */
+
+.headings {
+  margin-top: 10%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10%;
+  width: 80%;
+  border-bottom: 2px solid black;
+}
+
+.label-input {
+  display: flex;
+  flex-direction: column;
+}
+
+/* -------------------- PARAGRAPHS ----------------- */
+
+.paragraphs {
+  width: 80%;
+  border-bottom: 2px solid black;
+}
+
+.above-para {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* -------------------- PARAGRAPHS ----------------- */
+
+.vocabulary-section {
+  width: 80%;
+  border-bottom: 2px solid black;
+}
+
+.above-vocab {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vocab-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10%;
+  margin-bottom: 5em;
+}
+
+/* -------------------- QUIZ ----------------- */
+
+.quiz-section {
+  width: 80%;
+  border-bottom: 2px solid black;
+  margin-bottom: 5em;
+}
+
+.label-question {
+  display: flex;
+  flex-direction: column;
+}
+
+.answers {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 5em;
 }
