@@ -23,7 +23,6 @@ export default function Paragraphs() {
 
   const allParagrpahs = paragraphs.map((paragraph, index) => (
     <div className="paragraph">
-      <h2>Paragraphs</h2>
       <div className="above-para">
         <h3>Paragraph ({index})</h3>
         <button className="delete-btn" onClick={() => deleteParagraph(index)}>
@@ -37,6 +36,7 @@ export default function Paragraphs() {
 
   return (
     <section className="paragraphs">
+      <h2>Paragraphs</h2>
       {allParagrpahs}
       <button className="add-para" onClick={addParagraph}>
         +
