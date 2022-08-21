@@ -19,6 +19,10 @@ export default function Quiz() {
           </div>
         </div>
       </div>
+      <div className="below-QA">
+        <button className="delete-word">delete word</button>
+      </div>
+      <button className="new-btn">+</button>
     </section>
   );
 }

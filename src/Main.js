@@ -11,6 +11,7 @@ function Main() {
       <Paragraphs />
       <Vocabulary />
       <Quiz />
+      <button className="delete-article-btn">delete article</button>
     </main>
   );
 }

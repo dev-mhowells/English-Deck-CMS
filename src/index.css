@@ -22,7 +22,7 @@ button {
   font-family: "Commissioner", sans-serif;
   border: none;
   border-radius: 0.3em;
-  padding: 0.7em;
+  padding: 0.3em 1.8em;
   align-self: center;
   cursor: pointer;
 }
@@ -57,7 +57,7 @@ input:focus {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   padding: 0.5em 0;
 }
 
@@ -147,11 +147,29 @@ textarea:focus {
   justify-content: space-between;
 }
 
+.vocab-tabs {
+  display: flex;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.vocab-tab {
+  background-color: #3a506b;
+  border-radius: 0.5em 0.5em 0 0;
+  padding: 0.3em 1.5em;
+}
+
 .vocab-info {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2em;
+}
+
+.below-vocab {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5em;
 }
 
 .new-btn {
@@ -162,7 +180,6 @@ textarea:focus {
 .quiz-section {
   width: 80%;
   border-bottom: 2px solid white;
-  margin-bottom: 5em;
   display: flex;
   flex-direction: column;
 }
@@ -170,6 +187,12 @@ textarea:focus {
 .quiz-section h2 {
   text-align: center;
   margin: 0.3em;
+}
+
+.QA-set {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
 }
 
 .label-question {
@@ -180,5 +203,16 @@ textarea:focus {
 .answers {
   display: flex;
   gap: 2em;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
+}
+
+.below-QA {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* -------------------- DELETE ----------------- */
+
+.delete-article-btn {
+  margin: 4em;
 }

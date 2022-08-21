@@ -4,15 +4,22 @@ export default function Vocabulary() {
   return (
     <section className="vocabulary-section">
       <h2>Vocabulary</h2>
-      <div className="above-vocab">
-        <h3>Set (1)</h3>
-        <button className="delete-btn">delete set</button>
+      <div className="vocab-tabs">
+        <div className="vocab-tab">word</div>
       </div>
       <div className="tabs"></div>
       <div className="vocab-info">
         <div className="label-input">
           <label for="word">Word</label>
           <input type={"word"} id={"word"} name={"word"}></input>
+        </div>
+        <div className="label-input">
+          <label for="paragraph-num">Paragraph number</label>
+          <input
+            type={"number"}
+            id={"paragraph-num"}
+            name={"paragraph-num"}
+          ></input>
         </div>
         <div className="label-input">
           <label for="definitions">Definitions</label>
@@ -31,7 +38,10 @@ export default function Vocabulary() {
           <input type={"input"} id={"type"} name={"type"}></input>
         </div>
       </div>
-      <button className="new-btn">new set</button>
+      <div className="below-vocab">
+        <button className="delete-word">delete word</button>
+      </div>
+      <button className="new-btn">+</button>
     </section>
   );
 }
