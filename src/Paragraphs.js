@@ -29,18 +29,7 @@ export default function Paragraphs() {
     setText(event.target.value);
   }
 
-  //   function saveText(paragraphNumber) {
-  //     setParagraphs((prevParagraphs) =>
-  //       prevParagraphs.map((paragraph) => {
-  //         paragraph.number === paragraphNumber
-  //           ? { ...paragraph, text }
-  //           : paragraph;
-  //       })
-  //     );
-  //   }
-
   function saveText(paragraphNumber) {
-    console.log("save ran with this text:", text);
     setParagraphs((prevParagraphs) =>
       prevParagraphs.map((paragraph) => {
         if (paragraph.number === paragraphNumber) return { ...paragraph, text };
