@@ -1,10 +1,12 @@
 import "./index.css";
 import React from "react";
+import Word from "./Word";
 
 export default function Vocabulary() {
   const [word, setWord] = React.useState("");
   const [vocabulary, setVocabulary] = React.useState([
     {
+      //   word: word,
       word,
       paragraphNumber: "",
       definition: "",
@@ -20,6 +22,7 @@ export default function Vocabulary() {
     setWord(event.target.value);
   }
 
+  // adds a word object to the list of word objects (vocabulary)
   function addWord() {
     setVocabulary((prevVocabulary) => [
       ...prevVocabulary,
@@ -36,16 +39,25 @@ export default function Vocabulary() {
 
   function deleteWord(word) {
     setVocabulary((prevVocabulary) =>
-      prevVocabulary.filter((vocabObj) => vocabObj.word !== word)
+      prevVocabulary.filter((vocabObj) => vocabObj.word !== selectedTab)
     );
+  }
+
+  // grabs word object if selected tab === wordObj.word
+  function findWordObj(word) {
+    for (let wordObj of vocabulary) {
+      if (wordObj.word === word) {
+        setWord(wordObj.word);
+      }
+    }
   }
 
   function handleSelelctedTab(word) {
     setSelectedTab(word);
-    console.log(word, "click ran");
+    findWordObj(word);
   }
 
-  const allWords = vocabulary.map((vocabObj, index) => {
+  const allTabs = vocabulary.map((vocabObj, index) => {
     return (
       <div
         className="vocab-tab"
@@ -56,60 +68,18 @@ export default function Vocabulary() {
     );
   });
 
-  const wordDisplay = vocabulary
-    .filter((wordObj) => wordObj.word === selectedTab)
-    .map((filteredWordObj) => {
-      console.log(filteredWordObj.word, "WORDDD");
-      return (
-        <div className="vocab-info">
-          <div className="label-input">
-            <label for="word">Word</label>
-            <input
-              type={"word"}
-              id={"word"}
-              name={"word"}
-              onChange={handleWordChange}
-              value={word}
-            ></input>
-          </div>
-          <div className="label-input">
-            <label for="paragraph-num">Paragraph number</label>
-            <input
-              type={"number"}
-              id={"paragraph-num"}
-              name={"paragraph-num"}
-            ></input>
-          </div>
-          <div className="label-input">
-            <label for={"definitions"}>Definitions</label>
-            <input
-              type={"input"}
-              id={"definitions"}
-              name={"definitions"}
-            ></input>
-          </div>
-          <div className="label-input">
-            <label for={"examples"}>Examples</label>
-            <input type={"input"} id={"examples"} name={"examples"}></input>
-          </div>
-          <div className="label-input">
-            <label for={"variations"}>Variations</label>
-            <input type={"input"} id={"variations"} name={"variations"}></input>
-          </div>
-          <div className="label-input">
-            <label for={"type"}>Type</label>
-            <input type={"input"} id={"type"} name={"type"}></input>
-          </div>
-        </div>
-      );
-    });
+  //   const allWords = vocabulary
+  //     .filter((vocabObj) => vocabObj.word === selectedTab)
+  //     .map((filteredVocabObj) => {
+  //       console.log("match?", filteredVocabObj.word, selectedTab);
+  //       return <Word vocabObj={filteredVocabObj} addWord2={addWord2} />;
+  //     });
 
   return (
     <section className="vocabulary-section">
       <h2>Vocabulary</h2>
-      <div className="vocab-tabs">{allWords}</div>
-      {wordDisplay}
-      {/* <div className="vocab-info">
+      <div className="vocab-tabs">{allTabs}</div>
+      <div className="vocab-info">
         <div className="label-input">
           <label for="word">Word</label>
           <input
@@ -117,6 +87,7 @@ export default function Vocabulary() {
             id={"word"}
             name={"word"}
             onChange={handleWordChange}
+            value={word}
           ></input>
         </div>
         <div className="label-input">
@@ -143,9 +114,11 @@ export default function Vocabulary() {
           <label for={"type"}>Type</label>
           <input type={"input"} id={"type"} name={"type"}></input>
         </div>
-      </div> */}
+      </div>
       <div className="below-vocab">
-        <button className="delete-word">delete word</button>
+        <button className="delete-word" onClick={deleteWord}>
+          delete word
+        </button>
       </div>
       <button className="new-btn" onClick={addWord}>
         +

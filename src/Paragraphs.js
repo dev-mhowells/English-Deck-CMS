@@ -25,12 +25,14 @@ export default function Paragraphs() {
     <div className="paragraph">
       <div className="above-para">
         <h3>Paragraph ({index})</h3>
+      </div>
+      <textarea className="textarea"></textarea>
+      <div className="below-para">
+        <p className="wordcount">words: 0000</p>
         <button className="delete-btn" onClick={() => deleteParagraph(index)}>
           delete
         </button>
       </div>
-      <textarea className="textarea"></textarea>
-      <p className="wordcount">words: 0000</p>
     </div>
   ));
 

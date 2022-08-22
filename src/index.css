@@ -109,6 +109,13 @@ input:focus {
   margin-bottom: 0.3em;
 }
 
+.below-para {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+}
+
 .wordcount {
   font-weight: 300;
 }
