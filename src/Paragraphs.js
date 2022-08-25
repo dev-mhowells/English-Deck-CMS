@@ -3,9 +3,8 @@ import React from "react";
 
 export default function Paragraphs() {
   const [text, setText] = React.useState("");
-  const [allText, setAllText] = React.useState([]);
   const [paragraphs, setParagraphs] = React.useState([
-    { number: 1, text: "test", wordCount: 0 },
+    { number: 1, text: "", wordCount: 0 },
   ]);
 
   function addParagraph() {
@@ -26,16 +25,13 @@ export default function Paragraphs() {
     );
   }
 
-  //   function handleText(event) {
-  //     setText(event.target.value);
-  //   }
-
-  const handleText2 = (index, event) => {
+  const handleText = (index, event) => {
     let data = [...paragraphs];
-    data[index]["text"] = event.target.value;
+    data[index].text = event.target.value;
     setParagraphs(data);
   };
 
+  // POSSIBLY DEFUNCT
   function saveText(paragraphNumber) {
     setParagraphs((prevParagraphs) =>
       prevParagraphs.map((paragraph) => {
@@ -56,7 +52,7 @@ export default function Paragraphs() {
       <textarea
         className="textarea"
         value={paragraph.text}
-        onChange={(event) => handleText2(index, event)}
+        onChange={(event) => handleText(index, event)}
       ></textarea>
       <div className="below-para">
         <p className="wordcount">words: 0000</p>
@@ -69,28 +65,6 @@ export default function Paragraphs() {
       </div>
     </div>
   ));
-
-  //   const allParagrpahs = paragraphs.map((paragraph, index) => (
-  //     <div className="paragraph">
-  //       <div className="above-para">
-  //         <h3>Paragraph ({paragraph.number})</h3>
-  //       </div>
-  //       <textarea
-  //         className="textarea"
-  //         value={text}
-  //         onChange={handleText}
-  //       ></textarea>
-  //       <div className="below-para">
-  //         <p className="wordcount">words: 0000</p>
-  //         <button className="delete-btn" onClick={() => deleteParagraph(index)}>
-  //           delete
-  //         </button>
-  //         <button className="delete-btn" onClick={() => saveText(index + 1)}>
-  //           save
-  //         </button>
-  //       </div>
-  //     </div>
-  //   ));
 
   return (
     <section className="paragraphs">
