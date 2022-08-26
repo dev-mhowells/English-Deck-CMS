@@ -1,19 +1,19 @@
 import "./index.css";
 import React from "react";
 
-export default function Paragraphs() {
+export default function Paragraphs(props) {
   // save function not needed here as all paragraphs are in a single state
   // which is continually monitored
 
   const [text, setText] = React.useState("");
-  const [paragraphs, setParagraphs] = React.useState([
-    { number: 1, text: "", wordCount: 0 },
-  ]);
+  //   const [paragraphs, setParagraphs] = React.useState([
+  //     { number: 1, text: "", wordCount: 0 },
+  //   ]);
 
   function addParagraph() {
-    setParagraphs((prevParagraphs) => [
+    props.setParagraphs((prevParagraphs) => [
       ...prevParagraphs,
-      { number: paragraphs.length + 1, text: "", wordCount: 0 },
+      { number: props.paragraphs.length + 1, text: "", wordCount: 0 },
     ]);
   }
 
@@ -21,7 +21,7 @@ export default function Paragraphs() {
   // number property. Map resets the number property for each paragraph object
   // to account for the newly missing paragraph.
   function deleteParagraph(paragraphNumber) {
-    setParagraphs((prevParagraphs) =>
+    props.setParagraphs((prevParagraphs) =>
       prevParagraphs
         .filter((paragraph) => paragraph.number !== paragraphNumber + 1)
         .map((paragraph, index) => ({ ...paragraph, number: index + 1 }))
@@ -29,25 +29,15 @@ export default function Paragraphs() {
   }
 
   const handleText = (index, event) => {
-    let data = [...paragraphs];
+    let data = [...props.paragraphs];
     data[index].text = event.target.value;
-    setParagraphs(data);
+    props.setParagraphs(data);
   };
 
-  // POSSIBLY DEFUNCT
-  //   function saveText(paragraphNumber) {
-  //     setParagraphs((prevParagraphs) =>
-  //       prevParagraphs.map((paragraph) => {
-  //         if (paragraph.number === paragraphNumber) return { ...paragraph, text };
-  //         else return paragraph;
-  //       })
-  //     );
-  //   }
-
-  console.log("PARAGRAPHS", paragraphs);
+  console.log("PARAGRAPHS", props.paragraphs);
   console.log("TEXT", text);
 
-  const allParagrpahs = paragraphs.map((paragraph, index) => (
+  const allParagrpahs = props.paragraphs.map((paragraph, index) => (
     <div className="paragraph">
       <div className="above-para">
         <h3>Paragraph ({paragraph.number})</h3>

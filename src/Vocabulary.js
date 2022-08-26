@@ -2,12 +2,12 @@ import "./index.css";
 import React from "react";
 import Word from "./Word";
 
-export default function Vocabulary() {
+export default function Vocabulary(props) {
   // ------------------------------- FIELD INPUT STATES --------------------------//
   const [word, setWord] = React.useState("");
   const [definition, setDefinition] = React.useState("");
   const [example, setExample] = React.useState("");
-  const [vocabulary, setVocabulary] = React.useState([]);
+  //   const [vocabulary, setVocabulary] = React.useState([]);
 
   // -------------------------------  --------------------------//
   const [selectedTab, setSelectedTab] = React.useState("");
@@ -38,12 +38,12 @@ export default function Vocabulary() {
   // adds a word object to the list of word objects (vocabulary)
   function addWord() {
     // check if word already exists before adding it
-    for (let wordObj of vocabulary) {
+    for (let wordObj of props.vocabulary) {
       if (wordObj.word === word) {
         return;
       }
     }
-    setVocabulary((prevVocabulary) => [
+    props.setVocabulary((prevVocabulary) => [
       ...prevVocabulary,
       {
         word,
@@ -62,7 +62,7 @@ export default function Vocabulary() {
     // save edit button shows
     setEditing(false);
 
-    setVocabulary((prevVocabulary) =>
+    props.setVocabulary((prevVocabulary) =>
       prevVocabulary.map((wordObj) => {
         if (wordObj.word === selectedTab) {
           return {
@@ -75,13 +75,13 @@ export default function Vocabulary() {
       })
     );
   }
-  console.log("VOCABULARY", vocabulary);
+  console.log("VOCABULARY", props.vocabulary);
 
   function deleteWord(word) {
     // not used yet
     let deletedIndex;
 
-    setVocabulary((prevVocabulary) =>
+    props.setVocabulary((prevVocabulary) =>
       prevVocabulary.filter((vocabObj, index) => {
         deletedIndex = index;
         return vocabObj.word !== selectedTab;
@@ -93,7 +93,7 @@ export default function Vocabulary() {
   // grabs word object if selected tab === wordObj.word
   // called on tab change and changes state corresponding to input feilds
   function findWordObj(word) {
-    for (let wordObj of vocabulary) {
+    for (let wordObj of props.vocabulary) {
       if (wordObj.word === word) {
         setWord(wordObj.word);
         setDefinition(wordObj.definition);
@@ -145,7 +145,7 @@ export default function Vocabulary() {
     // saved obj becomes the currently selected object from vocab array
     let savedObj;
     // sets savedObj based on currently selected tab to find matchin obj in vocab arr
-    for (let wordObj of vocabulary) {
+    for (let wordObj of props.vocabulary) {
       if (wordObj.word === selectedTab) {
         savedObj = wordObj;
       }
@@ -161,7 +161,7 @@ export default function Vocabulary() {
   console.log("selectedtab", selectedTab);
 
   React.useEffect(() => {
-    if (!vocabulary) return;
+    if (!props.vocabulary) return;
 
     alreadyAdded();
   }, [word, definition, example]);
@@ -169,8 +169,8 @@ export default function Vocabulary() {
   // ------------------------------- RENDERED ELEMENTS --------------------------//
 
   // renders all tabs based on number of word objects in vocabulary array
-  const allTabs = vocabulary.map((vocabObj, index) => {
-    if (vocabulary[0]) {
+  const allTabs = props.vocabulary.map((vocabObj, index) => {
+    if (props.vocabulary[0]) {
       return (
         <div
           className="vocab-tab"

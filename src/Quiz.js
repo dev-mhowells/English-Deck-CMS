@@ -1,16 +1,16 @@
 import "./index.css";
 import React from "react";
 
-export default function Quiz() {
-  const [quiz, setQuiz] = React.useState([
-    {
-      question: "",
-      answers: [],
-    },
-  ]);
+export default function Quiz(props) {
+  //   const [quiz, setQuiz] = React.useState([
+  //     {
+  //       question: "",
+  //       answers: [],
+  //     },
+  //   ]);
 
   function newQA() {
-    setQuiz((prevQuiz) => [
+    props.setQuiz((prevQuiz) => [
       ...prevQuiz,
       {
         question: "",
@@ -20,24 +20,24 @@ export default function Quiz() {
   }
 
   function deleteQA(index) {
-    setQuiz((prevQuiz) => prevQuiz.filter((QA, i) => index !== i));
+    props.setQuiz((prevQuiz) => prevQuiz.filter((QA, i) => index !== i));
   }
 
   function handleQChange(event, index) {
-    let data = [...quiz];
+    let data = [...props.quiz];
     data[index].question = event.target.value;
-    setQuiz(data);
+    props.setQuiz(data);
   }
 
   function handleAChange(event, index, questionNum) {
-    let data = [...quiz];
+    let data = [...props.quiz];
     data[index].answers[questionNum] = event.target.value;
-    setQuiz(data);
+    props.setQuiz(data);
   }
 
-  console.log("QUIZ", quiz);
+  console.log("QUIZ", props.quiz);
 
-  const allQA = quiz.map((QA, index) => {
+  const allQA = props.quiz.map((QA, index) => {
     return (
       <div>
         <div className="QA-set">
