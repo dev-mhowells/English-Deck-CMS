@@ -3,12 +3,15 @@ import React from "react";
 import Word from "./Word";
 
 export default function Vocabulary() {
+  // ------------------------------- FIELD INPUT STATES --------------------------//
   const [word, setWord] = React.useState("");
   const [definition, setDefinition] = React.useState("");
   const [example, setExample] = React.useState("");
   const [vocabulary, setVocabulary] = React.useState([]);
 
+  // -------------------------------  --------------------------//
   const [selectedTab, setSelectedTab] = React.useState("");
+  const [editing, setEditing] = React.useState(false);
 
   function handleWordChange(event) {
     setWord(event.target.value);
@@ -62,7 +65,12 @@ export default function Vocabulary() {
     setVocabulary((prevVocabulary) =>
       prevVocabulary.map((wordObj) => {
         if (wordObj.word === selectedTab) {
-          return { ...wordObj, word: word };
+          return {
+            ...wordObj,
+            word: word,
+            definition: definition,
+            example: example,
+          };
         } else return wordObj;
       })
     );
@@ -100,7 +108,7 @@ export default function Vocabulary() {
     findWordObj(word);
   }
 
-  const [editing, setEditing] = React.useState(false);
+  // ------------------------------- DETERMINES WHETHER USER IS EDITING --------------------------//
 
   // compares two objects, current object with fields in state defined in
   // alreadyAdded() and the object in the vocabulary array
@@ -156,9 +164,9 @@ export default function Vocabulary() {
     if (!vocabulary) return;
 
     alreadyAdded();
-  }, [word]);
+  }, [word, definition, example]);
 
-  //   console.log("VOCABULARY", vocabulary);
+  // ------------------------------- RENDERED ELEMENTS --------------------------//
 
   // renders all tabs based on number of word objects in vocabulary array
   const allTabs = vocabulary.map((vocabObj, index) => {
