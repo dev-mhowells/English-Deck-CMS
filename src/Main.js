@@ -26,6 +26,7 @@ function Main() {
     {
       question: "",
       answers: [],
+      correct: ""
     },
   ]);
 

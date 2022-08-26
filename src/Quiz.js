@@ -32,10 +32,14 @@ export default function Quiz(props) {
   function handleAChange(event, index, questionNum) {
     let data = [...props.quiz];
     data[index].answers[questionNum] = event.target.value;
+    // the first answer in the array is set to the correct answer
+    if (questionNum === 0) data[index].correct = event.target.value;
     props.setQuiz(data);
   }
 
   console.log("QUIZ", props.quiz);
+
+  for (let i = 0; i < 4; i++) {}
 
   const allQA = props.quiz.map((QA, index) => {
     return (
@@ -54,11 +58,15 @@ export default function Quiz(props) {
           <div className="label-input">
             <label>Answers</label>
             <div className="answers">
-              <input
-                className="answer"
-                value={QA.answers[0]}
-                onChange={(event) => handleAChange(event, index, 0)}
-              ></input>
+              <div className="correct-answer-input">
+                <input
+                  className="answer correct-answer"
+                  value={QA.answers[0]}
+                  onChange={(event) => handleAChange(event, index, 0)}
+                ></input>
+                {/* <p>correct answer</p> */}
+              </div>
+
               <input
                 className="answer"
                 value={QA.answers[1]}

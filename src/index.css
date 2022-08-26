@@ -214,6 +214,10 @@ textarea:focus {
   margin-bottom: 2em;
 }
 
+.correct-answer {
+  background-color: #5bc0be;
+}
+
 .below-QA {
   display: flex;
   justify-content: flex-end;
