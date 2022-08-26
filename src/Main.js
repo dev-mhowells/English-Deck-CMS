@@ -6,6 +6,8 @@ import VocabularyC from "./VocabularyC";
 import Quiz from "./Quiz";
 
 import React from "react";
+import { db } from "./firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 
 function Main() {
   // State for Headings.js
@@ -13,6 +15,71 @@ function Main() {
   const [author, setAuthor] = React.useState("");
   const [themes, setThemes] = React.useState("");
   const [level, setLevel] = React.useState("");
+
+  //new - collection
+  //meta - document - acts as object
+  //title - key value pair
+  //specify merge so that whole doc is not overwritten
+  React.useEffect(() => {
+    console.log("USE EFFECT RAN");
+    async function testUpdate() {
+      // example metadata
+      await setDoc(
+        doc(db, "new", "meta"),
+        {
+          title: "test-title",
+          author: "me",
+          themes: ["story", "tale"],
+          level: "advanced",
+        },
+        { merge: true }
+      );
+      // example paragraphs
+      await setDoc(
+        doc(db, "new", "paragraphs"),
+        {
+          para1: "some text",
+          para2: "some more text",
+        },
+        { merge: true }
+      );
+      // example flashcards (could also use word as the key to each object)
+      await setDoc(
+        doc(db, "new", "flashcards"),
+        {
+          card1: {
+            word: "word",
+            definition: "something",
+            example: "this is an example",
+          },
+          card2: {
+            word: "word",
+            definition: "something",
+            example: "this is an example",
+          },
+        },
+        { merge: true }
+      );
+      // example questions
+      await setDoc(
+        doc(db, "new", "quiz"),
+        {
+          question1: {
+            question: "something?",
+            answers: ["answer1", "answer2"],
+            correct: "answer1",
+          },
+          question2: {
+            question: "something?",
+            answers: ["answer1", "answer2"],
+            correct: "answer1",
+          },
+        },
+        { merge: true }
+      );
+    }
+    testUpdate();
+  }, []);
 
   return (
     <main className="main">
@@ -29,6 +96,7 @@ function Main() {
       <Paragraphs />
       <Vocabulary />
       <Quiz />
+      <button className="delete-article-btn">add article</button>
       <button className="delete-article-btn">delete article</button>
     </main>
   );
