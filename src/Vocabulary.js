@@ -26,6 +26,10 @@ export default function Vocabulary() {
     setWord("");
     setDefinition("");
     setExample("");
+
+    //also clear selected tab and reselt editing
+    setSelectedTab("");
+    setEditing(false);
   }
 
   // adds a word object to the list of word objects (vocabulary)
@@ -49,6 +53,21 @@ export default function Vocabulary() {
     ]);
     clearFields();
   }
+
+  function saveWord() {
+    // saving word so editing no longer true, this controls whether
+    // save edit button shows
+    setEditing(false);
+
+    setVocabulary((prevVocabulary) =>
+      prevVocabulary.map((wordObj) => {
+        if (wordObj.word === selectedTab) {
+          return { ...wordObj, word: word };
+        } else return wordObj;
+      })
+    );
+  }
+  console.log("VOCABULARY", vocabulary);
 
   function deleteWord(word) {
     setVocabulary((prevVocabulary) =>
@@ -74,32 +93,7 @@ export default function Vocabulary() {
     findWordObj(word);
   }
 
-  // renders all tabs based on number of word objects in vocabulary array
-  const allTabs = vocabulary.map((vocabObj, index) => {
-    if (vocabulary[0]) {
-      return (
-        <div
-          className="vocab-tab"
-          onClick={() => handleSelelctedTab(vocabObj.word)}
-        >
-          {vocabObj.word}
-        </div>
-      );
-    }
-  });
-
   const [editing, setEditing] = React.useState(false);
-
-  const obj1 = {
-    one: 1,
-    two: 2,
-    three: "",
-  };
-  const obj2 = {
-    one: 1,
-    two: 2,
-    three: "",
-  };
 
   // compares two objects, current object with fields in state defined in
   // alreadyAdded() and the object in the vocabulary array
@@ -109,7 +103,7 @@ export default function Vocabulary() {
     for (let key of Object.keys(obj1)) {
       console.log("KEY CHECK", obj1[key], obj2[key]);
       if (obj1[key] && obj2[key] && obj1[key] !== obj2[key]) {
-        console.log("MISMATCH PAIR", obj1[key], obj2[key]);
+        // console.log("MISMATCH PAIR", obj1[key], obj2[key]);
         setEditing(true);
         return;
       } else setEditing(false);
@@ -149,6 +143,7 @@ export default function Vocabulary() {
   }
 
   console.log("editing", editing);
+  console.log("selectedtab", selectedTab);
 
   React.useEffect(() => {
     if (!vocabulary) return;
@@ -162,12 +157,31 @@ export default function Vocabulary() {
   //       return <Word vocabObj={filteredVocabObj} addWord2={addWord2} />;
   //     });
 
-  console.log("VOCABULARY", vocabulary);
+  //   console.log("VOCABULARY", vocabulary);
+
+  // renders all tabs based on number of word objects in vocabulary array
+  const allTabs = vocabulary.map((vocabObj, index) => {
+    if (vocabulary[0]) {
+      return (
+        <div
+          className="vocab-tab"
+          onClick={() => handleSelelctedTab(vocabObj.word)}
+        >
+          {vocabObj.word}
+        </div>
+      );
+    }
+  });
 
   return (
     <section className="vocabulary-section">
       <h2>Vocabulary</h2>
-      <div className="vocab-tabs">{allTabs}</div>
+      <div className="vocab-tabs">
+        {allTabs}
+        <div className="vocab-tab" onClick={clearFields}>
+          +
+        </div>
+      </div>
       <div className="vocab-info">
         <div className="label-input">
           <label for="word">Word</label>
@@ -217,14 +231,19 @@ export default function Vocabulary() {
         </div>
       </div>
       <div className="below-vocab">
-        {editing && <button className="save-word">save edit</button>}
         <button className="delete-word" onClick={deleteWord}>
           delete word
         </button>
       </div>
-      <button className="new-btn" onClick={addWord}>
-        +
-      </button>
+      {editing ? (
+        <button className="new-btn save-word" onClick={saveWord}>
+          save edit
+        </button>
+      ) : (
+        <button className="new-btn" onClick={addWord}>
+          add word to list
+        </button>
+      )}
     </section>
   );
 }

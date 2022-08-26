@@ -27,7 +27,7 @@ function Main() {
         setLevel={setLevel}
       />
       <Paragraphs />
-      <VocabularyC />
+      <Vocabulary />
       <Quiz />
       <button className="delete-article-btn">delete article</button>
     </main>
