@@ -70,9 +70,16 @@ export default function Vocabulary() {
   console.log("VOCABULARY", vocabulary);
 
   function deleteWord(word) {
+    // not used yet
+    let deletedIndex;
+
     setVocabulary((prevVocabulary) =>
-      prevVocabulary.filter((vocabObj) => vocabObj.word !== selectedTab)
+      prevVocabulary.filter((vocabObj, index) => {
+        deletedIndex = index;
+        return vocabObj.word !== selectedTab;
+      })
     );
+    clearFields();
   }
 
   // grabs word object if selected tab === wordObj.word
@@ -150,12 +157,6 @@ export default function Vocabulary() {
 
     alreadyAdded();
   }, [word]);
-  //   const allWords = vocabulary
-  //     .filter((vocabObj) => vocabObj.word === selectedTab)
-  //     .map((filteredVocabObj) => {
-  //       console.log("match?", filteredVocabObj.word, selectedTab);
-  //       return <Word vocabObj={filteredVocabObj} addWord2={addWord2} />;
-  //     });
 
   //   console.log("VOCABULARY", vocabulary);
 
@@ -235,11 +236,12 @@ export default function Vocabulary() {
           delete word
         </button>
       </div>
-      {editing ? (
+      {editing && (
         <button className="new-btn save-word" onClick={saveWord}>
           save edit
         </button>
-      ) : (
+      )}{" "}
+      {!selectedTab && (
         <button className="new-btn" onClick={addWord}>
           add word to list
         </button>
