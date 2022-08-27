@@ -49,7 +49,6 @@ function Main(props) {
 
   async function addToSidebar() {
     props.setAllArticles((prevArticles) => [...prevArticles, title]);
-    await setDoc(doc(db, "titles", title), { title }, { merge: true });
   }
 
   return (
