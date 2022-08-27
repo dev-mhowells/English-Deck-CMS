@@ -39,60 +39,61 @@ export default function Quiz(props) {
 
   console.log("QUIZ", props.quiz);
 
-  for (let i = 0; i < 4; i++) {}
-
-  const allQA = props.quiz.map((QA, index) => {
-    return (
-      <div>
-        <div className="QA-set">
-          <div className="label-input">
-            <label for="question">Question ({index + 1})</label>
-            <input
-              id={"question"}
-              type={"text"}
-              name={"question"}
-              value={QA.question}
-              onChange={(event) => handleQChange(event, index)}
-            ></input>
-          </div>
-          <div className="label-input">
-            <label>Answers</label>
-            <div className="answers">
-              <div className="correct-answer-input">
-                <input
-                  className="answer correct-answer"
-                  value={QA.answers[0]}
-                  onChange={(event) => handleAChange(event, index, 0)}
-                ></input>
-                {/* <p>correct answer</p> */}
-              </div>
-
+  // needs to control for if there is actually a quiz
+  const allQA =
+    props.quiz &&
+    props.quiz.map((QA, index) => {
+      return (
+        <div>
+          <div className="QA-set">
+            <div className="label-input">
+              <label for="question">Question ({index + 1})</label>
               <input
-                className="answer"
-                value={QA.answers[1]}
-                onChange={(event) => handleAChange(event, index, 1)}
-              ></input>
-              <input
-                className="answer"
-                value={QA.answers[2]}
-                onChange={(event) => handleAChange(event, index, 2)}
-              ></input>
-              <input
-                className="answer"
-                value={QA.answers[3]}
-                onChange={(event) => handleAChange(event, index, 3)}
+                id={"question"}
+                type={"text"}
+                name={"question"}
+                value={QA.question}
+                onChange={(event) => handleQChange(event, index)}
               ></input>
             </div>
+            <div className="label-input">
+              <label>Answers</label>
+              <div className="answers">
+                <div className="correct-answer-input">
+                  <input
+                    className="answer correct-answer"
+                    value={QA.answers[0]}
+                    onChange={(event) => handleAChange(event, index, 0)}
+                  ></input>
+                  {/* <p>correct answer</p> */}
+                </div>
+
+                <input
+                  className="answer"
+                  value={QA.answers[1]}
+                  onChange={(event) => handleAChange(event, index, 1)}
+                ></input>
+                <input
+                  className="answer"
+                  value={QA.answers[2]}
+                  onChange={(event) => handleAChange(event, index, 2)}
+                ></input>
+                <input
+                  className="answer"
+                  value={QA.answers[3]}
+                  onChange={(event) => handleAChange(event, index, 3)}
+                ></input>
+              </div>
+            </div>
+          </div>
+          <div className="below-QA">
+            <button className="delete-word" onClick={() => deleteQA(index)}>
+              delete word
+            </button>
           </div>
         </div>
-        <div className="below-QA">
-          <button className="delete-word" onClick={() => deleteQA(index)}>
-            delete word
-          </button>
-        </div>
-      </div>
-    );
-  });
+      );
+    });
 
   return (
     <section className="quiz-section">

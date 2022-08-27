@@ -4,40 +4,38 @@ import Sidebar from "./Sidebar";
 
 import React from "react";
 import { db } from "./firebase-config";
-import {
-  doc,
-  getDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 
 function App() {
   const [allArticles, setAllArticles] = React.useState([]);
+  // this is an object when has a value, set to empty sting as default because
+  // empty object evaluates to true
+  const [currentArticle, setCurrentArticle] = React.useState("");
 
   React.useEffect(() => {
-    console.log("USEEFFECT RAN");
-
     async function getAllArticles() {
+      // clear articles array so that it doesn't double up if useEffect called again
+      setAllArticles([]);
+
       const q = query(collection(db, "articles"));
       const querySnapshot = await getDocs(q);
-      console.log("QUERY SNAPSHOT", querySnapshot);
       querySnapshot.forEach((doc) => {
         setAllArticles((prevAllArticles) => [...prevAllArticles, doc.data()]);
-        console.log("FIREBASE DATA", doc.data());
       });
     }
 
     getAllArticles();
   }, []);
 
-  console.log("THIS IS ALL ARTICLES", allArticles);
+  // console.log("CURRENT ARTICLE", currentArticle.meta.title);
 
   return (
     <div className="app">
-      <Sidebar allArticles={allArticles} />
-      <Main allArticles={allArticles} />
+      <Sidebar
+        allArticles={allArticles}
+        setCurrentArticle={setCurrentArticle}
+      />
+      <Main allArticles={allArticles} currentArticle={currentArticle} />
     </div>
   );
 }

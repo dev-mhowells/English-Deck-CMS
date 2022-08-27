@@ -33,6 +33,33 @@ function Main(props) {
   const [vocabulary, setVocabulary] = React.useState([]);
 
   // ---------------------------------------------------------------- //
+  // if current article selected:
+
+  React.useEffect(() => {
+    function populateFields() {
+      if (props.currentArticle) {
+        setTitle(props.currentArticle.meta.title);
+        setAuthor(props.currentArticle.meta.author);
+        setThemes(props.currentArticle.meta.themes);
+        setLevel(props.currentArticle.meta.level);
+
+        setParagraphs(props.currentArticle.paragraphs);
+        setVocabulary(props.currentArticle.vocabulary);
+        setQuiz(props.currentArticle.quiz);
+      } else {
+        setTitle("");
+        setAuthor("");
+        setThemes("");
+        setLevel("");
+      }
+    }
+
+    populateFields();
+  }, [props.currentArticle]);
+
+  console.log("THIS IS PARAGRAPHS", paragraphs);
+
+  // ---------------------------------------------------------------- //
 
   async function updateDatabase() {
     await setDoc(
