@@ -9,7 +9,7 @@ import React from "react";
 import { db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 
-function Main() {
+function Main(props) {
   // State for Headings.js
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
@@ -26,91 +26,30 @@ function Main() {
     {
       question: "",
       answers: [],
-      correct: ""
+      correct: "",
     },
   ]);
 
   const [vocabulary, setVocabulary] = React.useState([]);
 
-  //new - collection
-  //meta - document - acts as object
-  //title - key value pair
-  //specify merge so that whole doc is not overwritten
-  // React.useEffect(() => {
-  //   console.log("USE EFFECT RAN");
-  //   async function testUpdate() {
-  //     // example metadata
-  //     await setDoc(
-  //       doc(db, "new", "meta"),
-  //       {
-  //         title: "test-title",
-  //         author: "me",
-  //         themes: ["story", "tale"],
-  //         level: "advanced",
-  //       },
-  //       { merge: true }
-  //     );
-  // example paragraphs
-  // await setDoc(
-  //   doc(db, "new", "paragraphs"),
-  //   {
-  //     para1: "some text",
-  //     para2: "some more text",
-  //   },
-  //   { merge: true }
-  // );
-  //     // example flashcards (could also use word as the key to each object)
-  //     await setDoc(
-  //       doc(db, "new", "flashcards"),
-  //       {
-  //         card1: {
-  //           word: "word",
-  //           definition: "something",
-  //           example: "this is an example",
-  //         },
-  //         card2: {
-  //           word: "word",
-  //           definition: "something",
-  //           example: "this is an example",
-  //         },
-  //       },
-  //       { merge: true }
-  //     );
-  //     // example questions
-  //     await setDoc(
-  //       doc(db, "new", "quiz"),
-  //       {
-  //         question1: {
-  //           question: "something?",
-  //           answers: ["answer1", "answer2"],
-  //           correct: "answer1",
-  //         },
-  //         question2: {
-  //           question: "something?",
-  //           answers: ["answer1", "answer2"],
-  //           correct: "answer1",
-  //         },
-  //       },
-  //       { merge: true }
-  //     );
-  //   }
-  //   testUpdate();
-  // }, []);
+  // ---------------------------------------------------------------- //
 
   async function updateDatabase() {
     await setDoc(
-      doc(db, "new", "meta"),
+      doc(db, "articles", title),
       {
-        title,
-        author,
-        themes,
-        level,
+        meta: { title, author, themes, level },
+        paragraphs: paragraphs,
+        quiz: quiz,
+        vocabulary: vocabulary,
       },
       { merge: true }
     );
-    await setDoc(doc(db, "new", "paragraphs"), { paragraphs }, { merge: true });
-    await setDoc(doc(db, "new", "quiz"), { quiz }, { merge: true });
-    await setDoc(doc(db, "new", "flashcards"), { vocabulary }, { merge: true });
+  }
+
+  async function addToSidebar() {
+    props.setAllArticles((prevArticles) => [...prevArticles, title]);
+    await setDoc(doc(db, "titles", title), { title }, { merge: true });
   }
 
   return (
@@ -130,6 +69,9 @@ function Main() {
       <Quiz quiz={quiz} setQuiz={setQuiz} />
       <button className="delete-article-btn" onClick={updateDatabase}>
         add article
+      </button>
+      <button className="delete-article-btn" onClick={addToSidebar}>
+        test function
       </button>
       <button className="delete-article-btn">delete article</button>
     </main>
