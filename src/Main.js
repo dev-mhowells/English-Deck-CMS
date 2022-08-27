@@ -37,6 +37,11 @@ function Main(props) {
 
   React.useEffect(() => {
     function populateFields() {
+      console.log("MAIN USE EFFECT");
+      // clear all fields first - means no overlap between articles if a field
+      // is not filled, otherwise state will remain from previously and still be something
+      // from another article.
+
       if (props.currentArticle) {
         setTitle(props.currentArticle.meta.title);
         setAuthor(props.currentArticle.meta.author);
@@ -91,7 +96,11 @@ function Main(props) {
         setLevel={setLevel}
       />
       <Paragraphs paragraphs={paragraphs} setParagraphs={setParagraphs} />
-      <Vocabulary vocabulary={vocabulary} setVocabulary={setVocabulary} />
+      <Vocabulary
+        vocabulary={vocabulary}
+        setVocabulary={setVocabulary}
+        currentArticle={props.currentArticle}
+      />
       <Quiz quiz={quiz} setQuiz={setQuiz} />
       <button className="delete-article-btn" onClick={updateDatabase}>
         add article

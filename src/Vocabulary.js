@@ -13,6 +13,8 @@ export default function Vocabulary(props) {
   const [selectedTab, setSelectedTab] = React.useState("");
   const [editing, setEditing] = React.useState(false);
 
+  // -------------------------------  --------------------------//
+
   function handleWordChange(event) {
     setWord(event.target.value);
   }
@@ -34,6 +36,12 @@ export default function Vocabulary(props) {
     setSelectedTab("");
     setEditing(false);
   }
+
+  // reset all feilds on article change, so fields are not autofilled
+  // with selected data from previously selected article
+  React.useEffect(() => {
+    clearFields();
+  }, [props.currentArticle]);
 
   // adds a word object to the list of word objects (vocabulary)
   function addWord() {
