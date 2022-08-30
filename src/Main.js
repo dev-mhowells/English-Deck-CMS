@@ -2,7 +2,6 @@ import "./index.css";
 import Headings from "./Headings";
 import Paragraphs from "./Paragraphs";
 import Vocabulary from "./Vocabulary";
-import VocabularyC from "./VocabularyC";
 import Quiz from "./Quiz";
 
 import React from "react";
@@ -69,7 +68,7 @@ function Main(props) {
     await setDoc(
       doc(db, "articles", title),
       {
-        meta: { title, author, themes, level },
+        meta: { title, author, themes, level, image: image[0].name },
         paragraphs: paragraphs,
         quiz: quiz,
         vocabulary: vocabulary,
@@ -78,8 +77,11 @@ function Main(props) {
     );
   }
 
+  // should only ever be one image, but image state from
+  // file input is an arr. image[0].name is the name of the
+  // originally uploaded file
   async function uploadImage() {
-    const imagesRef = ref(storage, "images");
+    const imagesRef = ref(storage, `images/${image[0].name}`);
     await uploadBytes(imagesRef, image[0]).then((snapshot) => {});
   }
   // -------------------------------------------------------- //

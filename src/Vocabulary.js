@@ -1,6 +1,5 @@
 import "./index.css";
 import React from "react";
-import Word from "./Word";
 
 export default function Vocabulary(props) {
   // ------------------------------- FIELD INPUT STATES --------------------------//
@@ -229,7 +228,7 @@ export default function Vocabulary(props) {
           ></input>
         </div>
         <div className="label-input">
-          <label for={"examples"}>Examples</label>
+          <label for={"examples"}>Example</label>
           <input
             type={"input"}
             id={"examples"}
@@ -238,10 +237,10 @@ export default function Vocabulary(props) {
             value={example}
           ></input>
         </div>
-        <div className="label-input">
+        {/* <div className="label-input">
           <label for={"variations"}>Variations</label>
           <input type={"input"} id={"variations"} name={"variations"}></input>
-        </div>
+        </div> */}
         <div className="label-input">
           <label for={"type"}>Type</label>
           <input type={"input"} id={"type"} name={"type"}></input>

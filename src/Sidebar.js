@@ -3,6 +3,8 @@ import "./index.css";
 import React from "react";
 
 export default function Sidebar(props) {
+  // THIS COMPONENT NEEDS TO RE-RENDER ON 'ADD ARTICLE'
+
   // current article determines what is shown in display inputs
   // if empty string, nothing shown in inputs
 
