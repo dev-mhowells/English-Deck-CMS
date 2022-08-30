@@ -7,11 +7,14 @@ import { db } from "./firebase-config";
 import { collection, query, getDocs } from "firebase/firestore";
 
 function App() {
+  // will be set to the "articles" collection from Firebase - all articles
   const [allArticles, setAllArticles] = React.useState([]);
-  // this is an object when has a value, set to empty sting as default because
-  // empty object evaluates to true
+  // currentArticle when has a value, is an object. Set to empty sting as default because
+  // needs to evaluate to false when empty.
+  // Is the currently selected article from the sidebar
   const [currentArticle, setCurrentArticle] = React.useState("");
 
+  // gets articles collection from Firebase and sets it to allArticles
   React.useEffect(() => {
     async function getAllArticles() {
       // clear articles array so that it doesn't double up if useEffect called again
@@ -26,8 +29,6 @@ function App() {
 
     getAllArticles();
   }, []);
-
-  // console.log("CURRENT ARTICLE", currentArticle.meta.title);
 
   return (
     <div className="app">

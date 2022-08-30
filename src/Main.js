@@ -6,8 +6,9 @@ import VocabularyC from "./VocabularyC";
 import Quiz from "./Quiz";
 
 import React from "react";
-import { db } from "./firebase-config";
+import { db, storage } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
 
 function Main(props) {
   // State for Headings.js
@@ -15,6 +16,7 @@ function Main(props) {
   const [author, setAuthor] = React.useState("");
   const [themes, setThemes] = React.useState("");
   const [level, setLevel] = React.useState("");
+  const [image, setImage] = React.useState([]);
 
   // ------------------------------------------------- //
 
@@ -37,7 +39,6 @@ function Main(props) {
 
   React.useEffect(() => {
     function populateFields() {
-      console.log("MAIN USE EFFECT");
       // clear all fields first - means no overlap between articles if a field
       // is not filled, otherwise state will remain from previously and still be something
       // from another article.
@@ -62,8 +63,6 @@ function Main(props) {
     populateFields();
   }, [props.currentArticle]);
 
-  console.log("THIS IS PARAGRAPHS", paragraphs);
-
   // ---------------------------------------------------------------- //
 
   async function updateDatabase() {
@@ -78,6 +77,12 @@ function Main(props) {
       { merge: true }
     );
   }
+
+  async function uploadImage() {
+    const imagesRef = ref(storage, "images");
+    await uploadBytes(imagesRef, image[0]).then((snapshot) => {});
+  }
+  // -------------------------------------------------------- //
 
   async function addToSidebar() {
     props.setAllArticles((prevArticles) => [...prevArticles, title]);
@@ -94,6 +99,8 @@ function Main(props) {
         setThemes={setThemes}
         level={level}
         setLevel={setLevel}
+        setImage={setImage}
+        image={image}
       />
       <Paragraphs paragraphs={paragraphs} setParagraphs={setParagraphs} />
       <Vocabulary
@@ -102,7 +109,13 @@ function Main(props) {
         currentArticle={props.currentArticle}
       />
       <Quiz quiz={quiz} setQuiz={setQuiz} />
-      <button className="delete-article-btn" onClick={updateDatabase}>
+      <button
+        className="delete-article-btn"
+        onClick={() => {
+          updateDatabase();
+          uploadImage();
+        }}
+      >
         add article
       </button>
       <button className="delete-article-btn" onClick={addToSidebar}>

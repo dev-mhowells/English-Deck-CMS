@@ -18,7 +18,11 @@ export default function Headings(props) {
     props.setLevel(event.target.value);
   }
 
-  console.log("METADATA", props.title, props.author, props.themes, props.level);
+  function onImageUpload(event) {
+    props.setImage(event.target.files);
+  }
+
+  console.log("IMAGE", props.image, typeof props.image);
 
   return (
     <section className="headings">
@@ -35,7 +39,7 @@ export default function Headings(props) {
       <div className="label-input">
         <label for="author">Author</label>
         <input
-          type={"author"}
+          type={"text"}
           id={"author"}
           name={"author"}
           value={props.author}
@@ -43,15 +47,25 @@ export default function Headings(props) {
         ></input>
       </div>
       <div className="label-input">
+        <label for="img">Image</label>
+        <input
+          type={"file"}
+          id={"image"}
+          name={"image"}
+          accept={"image/*"}
+          onChange={onImageUpload}
+        ></input>
+      </div>
+      {/* <div className="label-input">
         <label for="themes">Themes</label>
         <input
-          type={"themes"}
+          type={"text"}
           id={"themes"}
           name={"themes"}
           value={props.themes}
           onChange={handleThemes}
         ></input>
-      </div>
+      </div> */}
       <div className="label-input">
         <label for="level">Level</label>
         <input

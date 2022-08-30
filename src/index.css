@@ -16,7 +16,8 @@ h2 {
   font-weight: 600;
 }
 
-button {
+button,
+input::file-selector-button {
   background-color: #3a506b;
   color: white;
   font-family: "Commissioner", sans-serif;
