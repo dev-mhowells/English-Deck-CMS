@@ -35,6 +35,7 @@ function App() {
       <Sidebar
         allArticles={allArticles}
         setCurrentArticle={setCurrentArticle}
+        currentArticle={currentArticle}
       />
       <Main allArticles={allArticles} currentArticle={currentArticle} />
     </div>

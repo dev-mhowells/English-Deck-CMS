@@ -80,6 +80,15 @@ input:focus {
   cursor: pointer;
 }
 
+.article-link-selected {
+  text-align: center;
+  width: 100%;
+  background-color: #0b132b;
+  border-bottom: 1px solid #0b132b;
+  padding: 0.8em 0;
+  cursor: pointer;
+}
+
 .article-link:hover {
   background-color: #1c2541;
 }
