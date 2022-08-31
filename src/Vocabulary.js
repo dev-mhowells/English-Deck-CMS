@@ -180,7 +180,9 @@ export default function Vocabulary(props) {
     if (props.vocabulary[0]) {
       return (
         <div
-          className="vocab-tab"
+          className={
+            vocabObj.word !== selectedTab ? "vocab-tab" : "vocab-tab-selected"
+          }
           onClick={() => handleSelelctedTab(vocabObj.word)}
         >
           {vocabObj.word}
@@ -194,7 +196,10 @@ export default function Vocabulary(props) {
       <h2>Vocabulary</h2>
       <div className="vocab-tabs">
         {allTabs}
-        <div className="vocab-tab" onClick={clearFields}>
+        <div
+          className={selectedTab === "" ? "vocab-tab-selected" : "vocab-tab"}
+          onClick={clearFields}
+        >
           +
         </div>
       </div>

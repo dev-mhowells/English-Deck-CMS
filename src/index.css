@@ -199,6 +199,13 @@ textarea:focus {
   cursor: pointer;
 }
 
+.vocab-tab-selected {
+  background-color: #5bc0be;
+  border-radius: 0.5em 0.5em 0 0;
+  padding: 0.3em 1.5em;
+  cursor: pointer;
+}
+
 .vocab-info {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
