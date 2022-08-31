@@ -2,13 +2,6 @@ import "./index.css";
 import React from "react";
 
 export default function Quiz(props) {
-  //   const [quiz, setQuiz] = React.useState([
-  //     {
-  //       question: "",
-  //       answers: [],
-  //     },
-  //   ]);
-
   function newQA() {
     props.setQuiz((prevQuiz) => [
       ...prevQuiz,

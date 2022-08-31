@@ -37,7 +37,11 @@ function App() {
         setCurrentArticle={setCurrentArticle}
         currentArticle={currentArticle}
       />
-      <Main allArticles={allArticles} currentArticle={currentArticle} />
+      <Main
+        allArticles={allArticles}
+        currentArticle={currentArticle}
+        setCurrentArticle={setCurrentArticle}
+      />
     </div>
   );
 }

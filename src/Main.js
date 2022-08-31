@@ -10,7 +10,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 function Main(props) {
-  // State for Headings.js
+  // State for Headings.js - SHOULD COMBINE INTO SINGLE OBJECT
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [themes, setThemes] = React.useState("");
@@ -56,6 +56,15 @@ function Main(props) {
         setAuthor("");
         setThemes("");
         setLevel("");
+        setParagraphs([{ number: 1, text: "", wordCount: 0 }]);
+        setVocabulary([]);
+        setQuiz([
+          {
+            question: "",
+            answers: [],
+            correct: "",
+          },
+        ]);
       }
     }
 
@@ -64,11 +73,18 @@ function Main(props) {
 
   // ---------------------------------------------------------------- //
 
+  // pushes fields to Firebase
   async function updateDatabase() {
     await setDoc(
       doc(db, "articles", title),
       {
-        meta: { title, author, themes, level, image: image[0].name },
+        meta: {
+          title,
+          author,
+          themes,
+          level,
+          image: image[0] ? image[0].name : "",
+        },
         paragraphs: paragraphs,
         quiz: quiz,
         vocabulary: vocabulary,
@@ -81,11 +97,14 @@ function Main(props) {
   // file input is an arr. image[0].name is the name of the
   // originally uploaded file
   async function uploadImage() {
-    const imagesRef = ref(storage, `images/${image[0].name}`);
-    await uploadBytes(imagesRef, image[0]).then((snapshot) => {});
+    if (image[0]) {
+      const imagesRef = ref(storage, `images/${image[0].name}`);
+      await uploadBytes(imagesRef, image[0]).then((snapshot) => {});
+    }
   }
   // -------------------------------------------------------- //
 
+  // updates sidebar with articles from FireBase
   async function addToSidebar() {
     props.setAllArticles((prevArticles) => [...prevArticles, title]);
   }
@@ -116,6 +135,7 @@ function Main(props) {
         onClick={() => {
           updateDatabase();
           uploadImage();
+          props.setCurrentArticle("");
         }}
       >
         add article
