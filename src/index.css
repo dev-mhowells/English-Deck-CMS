@@ -28,14 +28,16 @@ input::file-selector-button {
   cursor: pointer;
 }
 
-input {
+input,
+select {
   font-family: "Commissioner", sans-serif;
   border: none;
   border-radius: 0.3em;
   padding: 0.5em;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
 }
 

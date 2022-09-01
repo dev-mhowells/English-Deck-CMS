@@ -96,9 +96,7 @@ function Main(props) {
   async function uploadImage() {
     if (image) {
       const imagesRef = ref(storage, `images/${image.name}`);
-      await uploadBytes(imagesRef, image).then((snapshot) => {
-        console.log("IMAGE UPLAODED");
-      });
+      await uploadBytes(imagesRef, image).then((snapshot) => {});
     }
   }
   // -------------------------------------------------------- //

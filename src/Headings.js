@@ -17,6 +17,15 @@ export default function Headings(props) {
     props.setArticleInfo(data);
   };
 
+  function controlLevel(event) {
+    props.setArticleInfo((prevArticleInfo) => ({
+      ...prevArticleInfo,
+      level: event.target.value,
+    }));
+  }
+
+  console.log("THIS", props.articleInfo);
+
   return (
     <section className="headings">
       <div className="label-input">
@@ -51,13 +60,16 @@ export default function Headings(props) {
       </div>
       <div className="label-input">
         <label for="level">Level</label>
-        <input
-          type={"level"}
+        <select
           id={"level"}
           name={"level"}
           value={props.articleInfo.level}
-          onChange={(event) => handleInfo("level", event)}
-        ></input>
+          onChange={(event) => controlLevel(event)}
+        >
+          <option value="beginner">beginner</option>
+          <option value="intermediate">intermediate</option>
+          <option value="advanced">advanced</option>
+        </select>
       </div>
       <div className="label-input">
         <label for="summary">Summary</label>
