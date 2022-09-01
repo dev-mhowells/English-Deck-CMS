@@ -75,6 +75,8 @@ function Main(props) {
     populateFields();
   }, [props.currentArticle]);
 
+  console.log("SHOT", articleInfo.title.split(" ").join(""));
+
   // ---------------------------------------------------------------- //
 
   async function updateDatabase() {
@@ -86,6 +88,7 @@ function Main(props) {
           paragraphs: paragraphs,
           quiz: quiz,
           vocabulary: vocabulary,
+          articleId: articleInfo.title.split(" ").join(""),
         },
         { merge: true }
       );
