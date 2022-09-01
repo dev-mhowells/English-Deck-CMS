@@ -2,14 +2,7 @@ import "./index.css";
 import React from "react";
 
 export default function Paragraphs(props) {
-  // save function not needed here as all paragraphs are in a single state
-  // which is continually monitored
-
-  const [text, setText] = React.useState("");
-  //   const [paragraphs, setParagraphs] = React.useState([
-  //     { number: 1, text: "", wordCount: 0 },
-  //   ]);
-
+  
   function addParagraph() {
     props.setParagraphs((prevParagraphs) => [
       ...prevParagraphs,
@@ -33,6 +26,8 @@ export default function Paragraphs(props) {
     let data = [...props.paragraphs];
     // correct paragraph's text property is updated onChange of input value
     data[index].text = event.target.value;
+    // word count off by 1.. need to play with this
+    data[index].wordCount = event.target.value.split(" ").length;
     props.setParagraphs(data);
   };
 
@@ -47,7 +42,7 @@ export default function Paragraphs(props) {
         onChange={(event) => handleText(index, event)}
       ></textarea>
       <div className="below-para">
-        <p className="wordcount">words: 0000</p>
+        <p className="wordcount">words: {paragraph.wordCount}</p>
         <button className="delete-btn" onClick={() => deleteParagraph(index)}>
           delete
         </button>

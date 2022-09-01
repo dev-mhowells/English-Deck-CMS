@@ -58,7 +58,6 @@ export default function Quiz(props) {
                     value={QA.answers[0]}
                     onChange={(event) => handleAChange(event, index, 0)}
                   ></input>
-                  {/* <p>correct answer</p> */}
                 </div>
 
                 <input
@@ -92,24 +91,6 @@ export default function Quiz(props) {
     <section className="quiz-section">
       <h2>Quiz</h2>
       {allQA}
-      {/* <div className="QA-set">
-        <div className="label-input">
-          <label for="question">Question (1)</label>
-          <input id={"question"} type={"text"} name={"question"}></input>
-        </div>
-        <div className="label-input">
-          <label>Answers</label>
-          <div className="answers">
-            <input className="answer"></input>
-            <input className="answer"></input>
-            <input className="answer"></input>
-            <input className="answer"></input>
-          </div>
-        </div>
-      </div>
-      <div className="below-QA">
-        <button className="delete-word">delete word</button>
-      </div> */}
       <button className="new-btn" onClick={newQA}>
         +
       </button>
