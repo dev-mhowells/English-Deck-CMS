@@ -14,13 +14,15 @@ export default function SidebarLink(props) {
       className={
         !props.currentArticle
           ? "article-link"
-          : props.currentArticle.meta.title !== props.article.meta.title
+          : props.currentArticle.articleInfo.title !==
+            props.article.articleInfo.title
           ? "article-link"
           : "article-link-selected"
       }
+      //   className="article-link"
       onClick={updateSidebar}
     >
-      {props.article.meta.title}
+      {props.article.articleInfo.title}
     </p>
   );
 }

@@ -2,27 +2,20 @@ import "./index.css";
 import React from "react";
 
 export default function Headings(props) {
-  function handleTitle(event) {
-    props.setTitle(event.target.value);
-  }
-
-  function handleAuthor(event) {
-    props.setAuthor(event.target.value);
-  }
-
-  function handleThemes(event) {
-    props.setThemes(event.target.value);
-  }
-
-  function handleLevel(event) {
-    props.setLevel(event.target.value);
-  }
-
   function onImageUpload(event) {
-    props.setImage(event.target.files);
+    props.setImage(event.target.files[0]);
+    props.setArticleInfo((prevArticleInfo) => ({
+      ...prevArticleInfo,
+      image: event.target.files[0].name,
+    }));
   }
 
-  console.log("IMAGE", props.image, typeof props.image);
+  // called on each keystroke
+  const handleInfo = (key, event) => {
+    let data = { ...props.articleInfo };
+    data[key] = event.target.value;
+    props.setArticleInfo(data);
+  };
 
   return (
     <section className="headings">
@@ -32,8 +25,8 @@ export default function Headings(props) {
           type={"text"}
           id={"title"}
           name={"title"}
-          value={props.title}
-          onChange={handleTitle}
+          value={props.articleInfo.title}
+          onChange={(event) => handleInfo("title", event)}
         ></input>
       </div>
       <div className="label-input">
@@ -42,8 +35,8 @@ export default function Headings(props) {
           type={"text"}
           id={"author"}
           name={"author"}
-          value={props.author}
-          onChange={handleAuthor}
+          value={props.articleInfo.author}
+          onChange={(event) => handleInfo("author", event)}
         ></input>
       </div>
       <div className="label-input">
@@ -56,6 +49,24 @@ export default function Headings(props) {
           onChange={onImageUpload}
         ></input>
       </div>
+      <div className="label-input">
+        <label for="level">Level</label>
+        <input
+          type={"level"}
+          id={"level"}
+          name={"level"}
+          value={props.articleInfo.level}
+          onChange={(event) => handleInfo("level", event)}
+        ></input>
+      </div>
+      <div className="label-input">
+        <label for="summary">Summary</label>
+        <textarea
+          className="textarea"
+          value={props.articleInfo.summary}
+          onChange={(event) => handleInfo("summary", event)}
+        ></textarea>
+      </div>
       {/* <div className="label-input">
         <label for="themes">Themes</label>
         <input
@@ -66,16 +77,6 @@ export default function Headings(props) {
           onChange={handleThemes}
         ></input>
       </div> */}
-      <div className="label-input">
-        <label for="level">Level</label>
-        <input
-          type={"level"}
-          id={"level"}
-          name={"level"}
-          value={props.level}
-          onChange={handleLevel}
-        ></input>
-      </div>
     </section>
   );
 }

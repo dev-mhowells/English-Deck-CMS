@@ -28,14 +28,13 @@ export default function Paragraphs(props) {
     );
   }
 
+  // called on each keystroke
   const handleText = (index, event) => {
     let data = [...props.paragraphs];
+    // correct paragraph's text property is updated onChange of input value
     data[index].text = event.target.value;
     props.setParagraphs(data);
   };
-
-  console.log("PARAGRAPHS", props.paragraphs);
-  console.log("TEXT", text);
 
   const allParagrpahs = props.paragraphs.map((paragraph, index) => (
     <div className="paragraph">

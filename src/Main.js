@@ -10,12 +10,15 @@ import { doc, setDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 function Main(props) {
-  // State for Headings.js - SHOULD COMBINE INTO SINGLE OBJECT
-  const [title, setTitle] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [themes, setThemes] = React.useState("");
-  const [level, setLevel] = React.useState("");
   const [image, setImage] = React.useState([]);
+
+  const [articleInfo, setArticleInfo] = React.useState({
+    title: "",
+    author: "",
+    image: "",
+    level: "",
+    summary: "",
+  });
 
   // ------------------------------------------------- //
 
@@ -38,24 +41,25 @@ function Main(props) {
 
   React.useEffect(() => {
     function populateFields() {
-      // clear all fields first - means no overlap between articles if a field
+      // clear all fields if no current article - means no overlap between articles if a field
       // is not filled, otherwise state will remain from previously and still be something
       // from another article.
 
       if (props.currentArticle) {
-        setTitle(props.currentArticle.meta.title);
-        setAuthor(props.currentArticle.meta.author);
-        setThemes(props.currentArticle.meta.themes);
-        setLevel(props.currentArticle.meta.level);
+        setArticleInfo(props.currentArticle.articleInfo);
 
         setParagraphs(props.currentArticle.paragraphs);
         setVocabulary(props.currentArticle.vocabulary);
         setQuiz(props.currentArticle.quiz);
       } else {
-        setTitle("");
-        setAuthor("");
-        setThemes("");
-        setLevel("");
+        setImage("");
+        setArticleInfo({
+          title: "",
+          author: "",
+          image: "",
+          level: "",
+          summary: "",
+        });
         setParagraphs([{ number: 1, text: "", wordCount: 0 }]);
         setVocabulary([]);
         setQuiz([
@@ -73,55 +77,44 @@ function Main(props) {
 
   // ---------------------------------------------------------------- //
 
-  // pushes fields to Firebase
   async function updateDatabase() {
-    await setDoc(
-      doc(db, "articles", title),
-      {
-        meta: {
-          title,
-          author,
-          themes,
-          level,
-          image: image[0] ? image[0].name : "",
+    if (articleInfo.title) {
+      await setDoc(
+        doc(db, "articles", articleInfo.title),
+        {
+          articleInfo,
+          paragraphs: paragraphs,
+          quiz: quiz,
+          vocabulary: vocabulary,
         },
-        paragraphs: paragraphs,
-        quiz: quiz,
-        vocabulary: vocabulary,
-      },
-      { merge: true }
-    );
+        { merge: true }
+      );
+    } else console.log("No title, cannot update");
   }
 
-  // should only ever be one image, but image state from
-  // file input is an arr. image[0].name is the name of the
-  // originally uploaded file
+  // uploads image to storage
   async function uploadImage() {
-    if (image[0]) {
-      const imagesRef = ref(storage, `images/${image[0].name}`);
-      await uploadBytes(imagesRef, image[0]).then((snapshot) => {});
+    if (image) {
+      const imagesRef = ref(storage, `images/${image.name}`);
+      await uploadBytes(imagesRef, image).then((snapshot) => {
+        console.log("IMAGE UPLAODED");
+      });
     }
   }
   // -------------------------------------------------------- //
 
-  // updates sidebar with articles from FireBase
-  async function addToSidebar() {
-    props.setAllArticles((prevArticles) => [...prevArticles, title]);
-  }
+  // WHY IS THIS HERE I DONT THINK IT'S BEING USED
+  // async function addToSidebar() {
+  //   props.setAllArticles((prevArticles) => [...prevArticles, title]);
+  // }
 
   return (
     <main className="main">
       <Headings
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        themes={themes}
-        setThemes={setThemes}
-        level={level}
-        setLevel={setLevel}
         setImage={setImage}
         image={image}
+        articleInfo={articleInfo}
+        setArticleInfo={setArticleInfo}
       />
       <Paragraphs paragraphs={paragraphs} setParagraphs={setParagraphs} />
       <Vocabulary
@@ -140,9 +133,9 @@ function Main(props) {
       >
         add article
       </button>
-      <button className="delete-article-btn" onClick={addToSidebar}>
+      {/* <button className="delete-article-btn" onClick={addToSidebar}>
         test function
-      </button>
+      </button> */}
       <button className="delete-article-btn">delete article</button>
     </main>
   );

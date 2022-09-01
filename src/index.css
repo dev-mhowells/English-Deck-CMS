@@ -109,7 +109,7 @@ input:focus {
   margin-top: 3em;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr) 3fr;
   gap: 10%;
   width: 80%;
   border-bottom: 2px solid white;
@@ -119,6 +119,14 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 0.8em;
+}
+
+.headings textarea {
+  resize: none;
+  height: 5em;
+  border-radius: 0.3em;
+  font-family: "Commissioner", sans-serif;
+  margin-bottom: 2em;
 }
 
 /* -------------------- PARAGRAPHS ----------------- */
@@ -152,7 +160,7 @@ input:focus {
   font-weight: 300;
 }
 
-textarea {
+.paragraphs textarea {
   width: 60%;
   resize: none;
   height: 10em;
