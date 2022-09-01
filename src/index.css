@@ -131,6 +131,11 @@ select:focus {
   margin-bottom: 2em;
 }
 
+.image-name {
+  display: flex;
+  gap: 2em;
+}
+
 /* -------------------- PARAGRAPHS ----------------- */
 
 .paragraphs {

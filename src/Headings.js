@@ -2,29 +2,37 @@ import "./index.css";
 import React from "react";
 
 export default function Headings(props) {
+  // toggles to allow image change, also allows showing file name when
+  // switching to new tab. Solution for noe because cannot set value
+  // of file inputs b/c security. When set to true allows uploading of new image
+  const [changeImage, setChangeImage] = React.useState(false);
+
   function onImageUpload(event) {
+    // image state is whole file which is uploaded to storage
     props.setImage(event.target.files[0]);
+    // creates reference to image name and saves in database
     props.setArticleInfo((prevArticleInfo) => ({
       ...prevArticleInfo,
       image: event.target.files[0].name,
     }));
+    // closes file upload display
+    setChangeImage(false);
   }
 
-  // called on each keystroke
+  // called on each keystroke, updates articleInfo object
   const handleInfo = (key, event) => {
     let data = { ...props.articleInfo };
     data[key] = event.target.value;
     props.setArticleInfo(data);
   };
 
+  // handles the dropdown for selecting article level
   function controlLevel(event) {
     props.setArticleInfo((prevArticleInfo) => ({
       ...prevArticleInfo,
       level: event.target.value,
     }));
   }
-
-  console.log("THIS", props.articleInfo);
 
   return (
     <section className="headings">
@@ -50,13 +58,20 @@ export default function Headings(props) {
       </div>
       <div className="label-input">
         <label for="img">Image</label>
-        <input
-          type={"file"}
-          id={"image"}
-          name={"image"}
-          accept={"image/*"}
-          onChange={onImageUpload}
-        ></input>
+        {!props.articleInfo.image || changeImage ? (
+          <input
+            type={"file"}
+            id={"image"}
+            name={"image"}
+            accept={"image/*"}
+            onChange={onImageUpload}
+          ></input>
+        ) : (
+          <div className="image-name">
+            <p>{props.articleInfo.image}</p>
+            <button onClick={() => setChangeImage(true)}>change image</button>
+          </div>
+        )}
       </div>
       <div className="label-input">
         <label for="level">Level</label>
