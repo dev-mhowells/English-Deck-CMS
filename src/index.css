@@ -266,6 +266,10 @@ textarea:focus {
 .new-btn {
   margin: 2em;
 }
+
+.not-editing {
+  opacity: 0.4;
+}
 /* -------------------- QUIZ ----------------- */
 
 .quiz-section {

@@ -80,6 +80,7 @@ export default function Vocabulary(props) {
         } else return wordObj;
       })
     );
+    clearFields();
   }
   console.log("VOCABULARY", props.vocabulary);
 
@@ -251,10 +252,13 @@ export default function Vocabulary(props) {
         </button>
       </div>
       {editing && (
-        <button className="new-btn save-word" onClick={saveWord}>
+        <button className={"new-btn save-word"} onClick={saveWord}>
           save edit
         </button>
-      )}{" "}
+      )}
+      {selectedTab && !editing && (
+        <button className="new-btn not-editing">save edit</button>
+      )}
       {!selectedTab && (
         <button className="new-btn" onClick={addWord}>
           add word to list

@@ -127,7 +127,7 @@ function Main(props) {
             props.setCurrentArticle("");
           }}
         >
-          add article
+          {props.currentArticle ? "save changes" : "add article"}
         </button>
       </div>
       <div className="bottom-buttons-del">
