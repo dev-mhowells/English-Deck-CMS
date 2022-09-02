@@ -81,6 +81,7 @@ export default function Headings(props) {
           value={props.articleInfo.level}
           onChange={(event) => controlLevel(event)}
         >
+          <option value=""></option>
           <option value="beginner">beginner</option>
           <option value="intermediate">intermediate</option>
           <option value="advanced">advanced</option>
