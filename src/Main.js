@@ -42,7 +42,7 @@ function Main(props) {
       // clear all fields if no current article - means no overlap between articles if a field
       // is not filled, otherwise state will remain from previously and still be something
       // from another article.
-
+      console.log("POP FIELDS RAN");
       if (props.currentArticle) {
         setArticleInfo(props.currentArticle.articleInfo);
         setParagraphs(props.currentArticle.paragraphs);
@@ -71,6 +71,7 @@ function Main(props) {
 
     populateFields();
   }, [props.currentArticle]);
+  console.log("CURRENT ARTICLE", props.currentArticle);
 
   // ---------------------------------------------------------------- //
 
@@ -101,6 +102,18 @@ function Main(props) {
   async function deleteArticle() {
     await deleteDoc(doc(db, "articles", articleInfo.title));
   }
+
+  // called on adding article to databse, current article will still be
+  // set to an empty string without this function
+  function persistCurrentArticle() {
+    props.setCurrentArticle({
+      articleInfo,
+      paragraphs,
+      quiz: quiz,
+      vocabulary,
+      articleId: articleInfo.title.split(" ").join(""),
+    });
+  }
   // -------------------------------------------------------- //
 
   return (
@@ -124,7 +137,7 @@ function Main(props) {
           onClick={() => {
             updateDatabase();
             uploadImage();
-            props.setCurrentArticle("");
+            persistCurrentArticle();
           }}
         >
           {props.currentArticle ? "save changes" : "add article"}

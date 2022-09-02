@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 
 import React from "react";
 import { db } from "./firebase-config";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, onSnapshot } from "firebase/firestore";
 
 function App() {
   // will be set to the "articles" collection from Firebase - all articles
@@ -17,19 +17,34 @@ function App() {
   // CAN SET THIS TO RUN EVERY TIME CURRENT ARTICLE CHANGES WHICH TRIGGERS
   // SIDEBAR UPDATE BUT IT SEEMS LIKE A BAD SOLUTION
   // gets articles collection from Firebase and sets it to allArticles
+  // React.useEffect(() => {
+  //   async function getAllArticles() {
+  //     // clear articles array so that it doesn't double up if useEffect called again
+  //     setAllArticles([]);
+
+  //     const q = query(collection(db, "articles"));
+  //     const querySnapshot = await getDocs(q);
+  //     querySnapshot.forEach((doc) => {
+  //       setAllArticles((prevAllArticles) => [...prevAllArticles, doc.data()]);
+  //     });
+  //   }
+
+  //   getAllArticles();
+  // }, []);
+
+  // MOVED FROM SIDEBAR.JS.. HAD ONE SNAPSHOT THERE AND GETDOCS HERE IN SEPERATE
+  // USEEFFECTS.. LEFT IN ABOVE CODE UNTIL SURE THIS CAUSES NO PROBLEMS
+  // onSnapshot monitors changes in articles doc so when docs are added or deleted
+  // it updates allArticles, which re-renders sidebar articles
   React.useEffect(() => {
-    async function getAllArticles() {
-      // clear articles array so that it doesn't double up if useEffect called again
+    const q = query(collection(db, "articles"));
+    onSnapshot(q, (snapshot) => {
       setAllArticles([]);
-
-      const q = query(collection(db, "articles"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setAllArticles((prevAllArticles) => [...prevAllArticles, doc.data()]);
+      const fetchedArticles = snapshot.docs.map((doc) => {
+        return { ...doc.data() };
       });
-    }
-
-    getAllArticles();
+      setAllArticles(fetchedArticles);
+    });
   }, []);
 
   return (
