@@ -6,7 +6,7 @@ import Quiz from "./Quiz";
 
 import React from "react";
 import { db, storage } from "./firebase-config";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 function Main(props) {
@@ -19,8 +19,6 @@ function Main(props) {
     level: "",
     summary: "",
   });
-
-  // ------------------------------------------------- //
 
   const [paragraphs, setParagraphs] = React.useState([
     { number: 1, text: "", wordCount: 0 },
@@ -47,7 +45,6 @@ function Main(props) {
 
       if (props.currentArticle) {
         setArticleInfo(props.currentArticle.articleInfo);
-
         setParagraphs(props.currentArticle.paragraphs);
         setVocabulary(props.currentArticle.vocabulary);
         setQuiz(props.currentArticle.quiz);
@@ -75,8 +72,6 @@ function Main(props) {
     populateFields();
   }, [props.currentArticle]);
 
-  console.log("SHOT", articleInfo.title.split(" ").join(""));
-
   // ---------------------------------------------------------------- //
 
   async function updateDatabase() {
@@ -102,12 +97,11 @@ function Main(props) {
       await uploadBytes(imagesRef, image).then((snapshot) => {});
     }
   }
-  // -------------------------------------------------------- //
 
-  // WHY IS THIS HERE I DONT THINK IT'S BEING USED
-  // async function addToSidebar() {
-  //   props.setAllArticles((prevArticles) => [...prevArticles, title]);
-  // }
+  async function deleteArticle() {
+    await deleteDoc(doc(db, "articles", articleInfo.title));
+  }
+  // -------------------------------------------------------- //
 
   return (
     <main className="main">
@@ -124,20 +118,29 @@ function Main(props) {
         currentArticle={props.currentArticle}
       />
       <Quiz quiz={quiz} setQuiz={setQuiz} />
-      <button
-        className="delete-article-btn"
-        onClick={() => {
-          updateDatabase();
-          uploadImage();
-          props.setCurrentArticle("");
-        }}
-      >
-        add article
-      </button>
-      {/* <button className="delete-article-btn" onClick={addToSidebar}>
-        test function
-      </button> */}
-      <button className="delete-article-btn">delete article</button>
+      <div className="bottom-buttons">
+        <button
+          id="add-article-btn"
+          onClick={() => {
+            updateDatabase();
+            uploadImage();
+            props.setCurrentArticle("");
+          }}
+        >
+          add article
+        </button>
+      </div>
+      <div className="bottom-buttons-del">
+        <button
+          className="delete-article-btn"
+          onClick={() => {
+            deleteArticle();
+            props.setCurrentArticle("");
+          }}
+        >
+          delete article
+        </button>
+      </div>
     </main>
   );
 }

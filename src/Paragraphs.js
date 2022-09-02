@@ -2,7 +2,6 @@ import "./index.css";
 import React from "react";
 
 export default function Paragraphs(props) {
-  
   function addParagraph() {
     props.setParagraphs((prevParagraphs) => [
       ...prevParagraphs,
@@ -33,9 +32,9 @@ export default function Paragraphs(props) {
 
   const allParagrpahs = props.paragraphs.map((paragraph, index) => (
     <div className="paragraph">
-      <div className="above-para">
+      {/* <div className="above-para">
         <h3>Paragraph ({paragraph.number})</h3>
-      </div>
+      </div> */}
       <textarea
         className="textarea"
         value={paragraph.text}

@@ -14,6 +14,8 @@ function App() {
   // Is the currently selected article from the sidebar
   const [currentArticle, setCurrentArticle] = React.useState("");
 
+  // CAN SET THIS TO RUN EVERY TIME CURRENT ARTICLE CHANGES WHICH TRIGGERS
+  // SIDEBAR UPDATE BUT IT SEEMS LIKE A BAD SOLUTION
   // gets articles collection from Firebase and sets it to allArticles
   React.useEffect(() => {
     async function getAllArticles() {
@@ -34,6 +36,7 @@ function App() {
     <div className="app">
       <Sidebar
         allArticles={allArticles}
+        setAllArticles={setAllArticles}
         setCurrentArticle={setCurrentArticle}
         currentArticle={currentArticle}
       />

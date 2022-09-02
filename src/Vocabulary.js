@@ -6,7 +6,6 @@ export default function Vocabulary(props) {
   const [word, setWord] = React.useState("");
   const [definition, setDefinition] = React.useState("");
   const [example, setExample] = React.useState("");
-  //   const [vocabulary, setVocabulary] = React.useState([]);
 
   // -------------------------------  --------------------------//
   const [selectedTab, setSelectedTab] = React.useState("");
@@ -158,14 +157,9 @@ export default function Vocabulary(props) {
       }
     }
 
-    console.log("current state", currentState, "savedObj", savedObj);
-
     // need if statement because on first load, savedObj is undefined(empty)
     if (savedObj) compareObjects(currentState, savedObj);
   }
-
-  console.log("editing", editing);
-  console.log("selectedtab", selectedTab);
 
   React.useEffect(() => {
     if (!props.vocabulary) return;
@@ -246,10 +240,10 @@ export default function Vocabulary(props) {
           <label for={"variations"}>Variations</label>
           <input type={"input"} id={"variations"} name={"variations"}></input>
         </div> */}
-        <div className="label-input">
+        {/* <div className="label-input">
           <label for={"type"}>Type</label>
           <input type={"input"} id={"type"} name={"type"}></input>
-        </div>
+        </div> */}
       </div>
       <div className="below-vocab">
         <button className="delete-word" onClick={deleteWord}>

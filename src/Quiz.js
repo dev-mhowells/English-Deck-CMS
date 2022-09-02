@@ -1,5 +1,6 @@
 import "./index.css";
 import React from "react";
+import { connectStorageEmulator } from "firebase/storage";
 
 export default function Quiz(props) {
   function newQA() {
@@ -16,12 +17,14 @@ export default function Quiz(props) {
     props.setQuiz((prevQuiz) => prevQuiz.filter((QA, i) => index !== i));
   }
 
+  // updates quiz state with question, updated on keystroke
   function handleQChange(event, index) {
     let data = [...props.quiz];
     data[index].question = event.target.value;
     props.setQuiz(data);
   }
 
+  // updates quiz state with answers, updated on keystroke
   function handleAChange(event, index, questionNum) {
     let data = [...props.quiz];
     data[index].answers[questionNum] = event.target.value;
@@ -30,17 +33,16 @@ export default function Quiz(props) {
     props.setQuiz(data);
   }
 
-  console.log("QUIZ", props.quiz);
-
   // needs to control for if there is actually a quiz
   const allQA =
     props.quiz &&
     props.quiz.map((QA, index) => {
+      console.log("THIS IS QA OBJ", QA);
       return (
         <div>
           <div className="QA-set">
             <div className="label-input">
-              <label for="question">Question ({index + 1})</label>
+              <label for="question">Question</label>
               <input
                 id={"question"}
                 type={"text"}
@@ -55,24 +57,24 @@ export default function Quiz(props) {
                 <div className="correct-answer-input">
                   <input
                     className="answer correct-answer"
-                    value={QA.answers[0]}
+                    value={QA.answers[0] ? QA.answers[0] : ""}
                     onChange={(event) => handleAChange(event, index, 0)}
                   ></input>
                 </div>
 
                 <input
                   className="answer"
-                  value={QA.answers[1]}
+                  value={QA.answers[1] ? QA.answers[1] : ""}
                   onChange={(event) => handleAChange(event, index, 1)}
                 ></input>
                 <input
                   className="answer"
-                  value={QA.answers[2]}
+                  value={QA.answers[2] ? QA.answers[2] : ""}
                   onChange={(event) => handleAChange(event, index, 2)}
                 ></input>
                 <input
                   className="answer"
-                  value={QA.answers[3]}
+                  value={QA.answers[3] ? QA.answers[3] : ""}
                   onChange={(event) => handleAChange(event, index, 3)}
                 ></input>
               </div>
