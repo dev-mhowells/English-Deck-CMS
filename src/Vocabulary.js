@@ -6,6 +6,7 @@ export default function Vocabulary(props) {
   const [word, setWord] = React.useState("");
   const [definition, setDefinition] = React.useState("");
   const [example, setExample] = React.useState("");
+  const [paraNum, setParaNum] = React.useState("");
 
   // -------------------------------  --------------------------//
   const [selectedTab, setSelectedTab] = React.useState("");
@@ -23,6 +24,10 @@ export default function Vocabulary(props) {
 
   function handleExampleChange(event) {
     setExample(event.target.value);
+  }
+
+  function handleParaNumChange(event) {
+    setParaNum(event.target.value);
   }
 
   function clearFields() {
@@ -53,7 +58,7 @@ export default function Vocabulary(props) {
       ...prevVocabulary,
       {
         word,
-        paragraphNumber: "",
+        paragraphNumber: paraNum,
         definition,
         example,
         // variations: [],
@@ -76,6 +81,7 @@ export default function Vocabulary(props) {
             word: word,
             definition: definition,
             example: example,
+            paragraphNumber: paraNum,
           };
         } else return wordObj;
       })
@@ -105,6 +111,7 @@ export default function Vocabulary(props) {
         setWord(wordObj.word);
         setDefinition(wordObj.definition);
         setExample(wordObj.example);
+        setParaNum(wordObj.paragraphNumber);
       }
     }
   }
@@ -124,8 +131,8 @@ export default function Vocabulary(props) {
     // below checks equality of values
     for (let key of Object.keys(obj1)) {
       console.log("KEY CHECK", obj1[key], obj2[key]);
-      if (obj1[key] && obj2[key] && obj1[key] !== obj2[key]) {
-        // console.log("MISMATCH PAIR", obj1[key], obj2[key]);
+      if (obj1[key] !== obj2[key]) {
+        console.log("MISMATCH PAIR", obj1[key], obj2[key]);
         setEditing(true);
         return;
       } else setEditing(false);
@@ -141,7 +148,7 @@ export default function Vocabulary(props) {
     // represents current display inside vocab ie all state which populates fields
     // are turned into this object
     let currentState = {
-      paragraphNumber: "",
+      paragraphNumber: paraNum,
       //   variations: [],
       type: "",
       word,
@@ -160,13 +167,22 @@ export default function Vocabulary(props) {
 
     // need if statement because on first load, savedObj is undefined(empty)
     if (savedObj) compareObjects(currentState, savedObj);
+    if (savedObj)
+      console.log(
+        "THIS IS SAVED OBJ >",
+        savedObj,
+        "THIS IS CURRENT STATE>",
+        currentState
+      );
   }
 
   React.useEffect(() => {
     if (!props.vocabulary) return;
 
     alreadyAdded();
-  }, [word, definition, example]);
+  }, [word, definition, example, paraNum]);
+
+  console.log("THIS IS PARANUM ----", paraNum);
 
   // ------------------------------- RENDERED ELEMENTS --------------------------//
 
@@ -215,6 +231,8 @@ export default function Vocabulary(props) {
             type={"number"}
             id={"paragraph-num"}
             name={"paragraph-num"}
+            value={paraNum}
+            onChange={handleParaNumChange}
           ></input>
         </div>
         <div className="label-input">
