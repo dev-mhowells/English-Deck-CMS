@@ -37,7 +37,6 @@ export default function Quiz(props) {
   const allQA =
     props.quiz &&
     props.quiz.map((QA, index) => {
-      console.log("THIS IS QA OBJ", QA);
       return (
         <div>
           <div className="QA-set">
@@ -82,7 +81,7 @@ export default function Quiz(props) {
           </div>
           <div className="below-QA">
             <button className="delete-word" onClick={() => deleteQA(index)}>
-              delete word
+              delete question
             </button>
           </div>
         </div>

@@ -85,11 +85,18 @@ function Main(props) {
           quiz: quiz,
           vocabulary: vocabulary,
           articleId: articleInfo.title.split(" ").join(""),
+          comments: [],
         },
         { merge: true }
       );
     } else console.log("No title, cannot update");
   }
+
+  // async function createComments() {
+  //   await setDoc(doc(db, "comments", articleInfo.title), {
+  //     comments: [
+  //     ]}, );
+  // }
 
   // uploads image to storage
   async function uploadImage() {
