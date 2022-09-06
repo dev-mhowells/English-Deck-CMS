@@ -1,70 +1,24 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Content Management System for English Deck 
 
-## Available Scripts
+I wanted a content management for the site which would allow me to update it with a single click, while providing all the data that was needed for the interactive elements on the site, such as the flashcards and quizzes. My solution was to build a CMS with sections corresponding to individual components in the React app. This also allowed me complete control over the structure of the database.
 
-In the project directory, you can run:
+I started with a clear idea that I wanted individual components to update a single object which was accessible to their common parent so that all of the data could be uploaded to the database (or edited) with a single click. By keeping the app modular in this way, I hope to easily be able to scale the CMS to the needs of the website, which is something I plan to continue working on, adding more interactive elements which will have their own corresponding sections in the CMS.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Challenges
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+The app is relatively simple so there weren’t too many technical challenges that I came across during the build. However, I was surprised by how much thought had to go into designing the functionality. Some questions I had to ask were: Should section edits be saved automatically or require manual saves? When does it make sense to add a tab system as opposed to displaying all the information on the page in a list? What kind of feedback should users get when updating, saving and deleting elements?
+## Lessons
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Since finishing the functionality of the app and using it to update my site, I realise that I got some of the answers to those questions wrong. Users are required to manually save edits to the vocabulary section, which feels clunky in practice. It also doesn’t feel like there is enough feedback to indicate successful saves on edit. Although these are not huge changes to make, I do wish I had spent a little more time testing out the user experience while making that section, and it’s certainly something I will start doing more of when working on future builds.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Create, edit and delete articles
+- Upload pictures
+- Tab system for adding vocabulary
+- Create quiz items
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
