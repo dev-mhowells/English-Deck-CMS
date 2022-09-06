@@ -58,6 +58,7 @@ select:focus {
 }
 
 .new-article {
+  margin: 1em 0;
   color: #5bc0be;
   width: 100%;
   display: flex;
