@@ -6,7 +6,7 @@ import Quiz from "./Quiz";
 
 import React from "react";
 import { db, storage } from "./firebase-config";
-import { doc, setDoc, deleteDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
 
 function Main(props) {
@@ -86,6 +86,7 @@ function Main(props) {
           vocabulary: vocabulary,
           articleId: articleInfo.title.split(" ").join(""),
           comments: [],
+          createdAt: serverTimestamp(),
         },
         { merge: true }
       );
