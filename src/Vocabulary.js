@@ -7,6 +7,8 @@ export default function Vocabulary(props) {
   const [definition, setDefinition] = React.useState("");
   const [example, setExample] = React.useState("");
   const [paraNum, setParaNum] = React.useState("");
+  const [variation, setVariation] = React.useState("");
+  const [variations, setVariations] = React.useState([]);
 
   // -------------------------------  --------------------------//
   const [selectedTab, setSelectedTab] = React.useState("");
@@ -30,10 +32,29 @@ export default function Vocabulary(props) {
     setParaNum(event.target.value);
   }
 
+  function handleVariation(event) {
+    setVariation(event.target.value);
+  }
+
+  function addVariation() {
+    setVariations((prevVariations) => [...prevVariations, variation]);
+    // clear current variation field
+    setVariation("");
+  }
+
+  function removeVariation(currentVariation) {
+    setVariations((prevVariations) =>
+      prevVariations.filter((variation) => variation !== currentVariation)
+    );
+  }
+
   function clearFields() {
     setWord("");
     setDefinition("");
     setExample("");
+    // for variations
+    setVariation("");
+    setVariations([]);
 
     //also clear selected tab and reselt editing
     setSelectedTab("");
@@ -61,7 +82,7 @@ export default function Vocabulary(props) {
         paragraphNumber: paraNum,
         definition,
         example,
-        // variations: [],
+        variations,
         type: "",
       },
     ]);
@@ -82,6 +103,7 @@ export default function Vocabulary(props) {
             definition: definition,
             example: example,
             paragraphNumber: paraNum,
+            variations,
           };
         } else return wordObj;
       })
@@ -112,6 +134,11 @@ export default function Vocabulary(props) {
         setDefinition(wordObj.definition);
         setExample(wordObj.example);
         setParaNum(wordObj.paragraphNumber);
+        // BECAUSE THIS FEATURE WAS ADDED AFTER ARTICLES POSTED, FIRST NEED TO
+        // CHECK IF ARTICLE HAS VARIATIONS
+        wordObj.variations
+          ? setVariations(wordObj.variations)
+          : setVariations([]);
       }
     }
   }
@@ -141,20 +168,18 @@ export default function Vocabulary(props) {
 
   // checks if the currently seleced tab/wordObj is already saved
   function alreadyAdded() {
-    // array commented out because resluts in the comparison coming out false,
-    // even if both arrays are empty. probably something to do with shallow and
-    // deep comparison
-
     // represents current display inside vocab ie all state which populates fields
     // are turned into this object
     let currentState = {
       paragraphNumber: paraNum,
-      //   variations: [],
+      variations,
       type: "",
       word,
       definition,
       example,
     };
+
+    console.log("this is current state", currentState.variations);
 
     // saved obj becomes the currently selected object from vocab array
     let savedObj;
@@ -176,11 +201,14 @@ export default function Vocabulary(props) {
       );
   }
 
+  // alreadyAdded works as a comparison check to see if the current state of the
+  // vocab object is the same as the previously saved state, if not, sets editing to
+  // true and allows for save edit button to work
   React.useEffect(() => {
     if (!props.vocabulary) return;
 
     alreadyAdded();
-  }, [word, definition, example, paraNum]);
+  }, [word, definition, example, paraNum, variations]);
 
   console.log("THIS IS PARANUM ----", paraNum);
 
@@ -201,6 +229,16 @@ export default function Vocabulary(props) {
       );
     }
   });
+
+  console.log("this is variations", variations);
+
+  const variationsDisplay =
+    variations &&
+    variations.map((variation) => {
+      return (
+        <button onClick={() => removeVariation(variation)}>{variation}</button>
+      );
+    });
 
   return (
     <section className="vocabulary-section">
@@ -255,10 +293,18 @@ export default function Vocabulary(props) {
             value={example}
           ></input>
         </div>
-        {/* <div className="label-input">
+        <div className="label-input">
           <label for={"variations"}>Variations</label>
-          <input type={"input"} id={"variations"} name={"variations"}></input>
-        </div> */}
+          <input
+            type={"input"}
+            id={"variations"}
+            name={"variations"}
+            onChange={handleVariation}
+            value={variation}
+          ></input>
+          <button onClick={addVariation}>add</button>
+        </div>
+        <div>{variations && variationsDisplay}</div>
         {/* <div className="label-input">
           <label for={"type"}>Type</label>
           <input type={"input"} id={"type"} name={"type"}></input>
